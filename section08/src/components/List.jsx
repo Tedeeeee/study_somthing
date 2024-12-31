@@ -10,19 +10,6 @@ const List = ({ todos, onUpdate, onDelete }) => {
     setSearch(e.target.value);
   };
 
-  // const getFilterData = () => {
-  //   if (search === "") {
-  //     return todos;
-  //   }
-  //   return todos.filter((todo) =>
-  //     todo.content
-  //       .toLowerCase()
-  //       .includes(search.toLowerCase())
-  //   );
-  // };
-  //
-  // const filteredTodos = getFilterData();
-
   useEffect(() => {
     if (search === "") {
       setFilteredTodos(todos);
@@ -46,7 +33,7 @@ const List = ({ todos, onUpdate, onDelete }) => {
         onChange={onChangeSearch}
       />
       <div className="todos_wrapper">
-        {todos.map((todo) => {
+        {filteredTodos.map((todo) => {
           return (
             <TodoItem
               key={todo.id}

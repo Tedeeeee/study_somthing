@@ -27,11 +27,22 @@ const mockDate = [
 
 function reducer(state, action) {
   switch (action.type) {
+    case "CREATE":
+      return [action.data, ...state];
+    case "UPDATE":
+      return state.map((todo) =>
+        todo.id === action.targetId
+          ? { ...todo, isDone: !todo.isDone }
+          : todo
+      );
+    case "DELETE":
+      return state.filter(
+        (todo) => todo.id !== action.targetId
+      );
   }
 }
 
 function App() {
-  // const [todos, setTodos] = useState(mockDate);
   const [todos, dispatch] = useReducer(reducer, mockDate);
   const idRef = useRef(3);
 
@@ -45,28 +56,20 @@ function App() {
         date: new Date().getTime(),
       },
     });
-    // const newTodo = {
-    //   id: idRef.current++,
-    //   isDone: false,
-    //   content: content,
-    //   date: new Date().getTime(),
-    // };
-    //
-    // setTodos([newTodo, ...todos]);
   };
 
-  const onUpdate = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, isDone: !todo.isDone }
-          : todo
-      )
-    );
+  const onUpdate = (targetId) => {
+    dispatch({
+      type: "CREATE",
+      targetId: targetId,
+    });
   };
 
   const onDelete = (targetId) => {
-    setTodos(todos.filter((todo) => todo.id !== targetId));
+    dispatch({
+      type: "DELETE",
+      targetId: targetId,
+    });
   };
 
   return (

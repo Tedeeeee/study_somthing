@@ -1,4 +1,5 @@
 import "./TotoItem.css";
+import { memo } from "react";
 
 const TodoItem = ({
   id,
@@ -33,4 +34,12 @@ const TodoItem = ({
   );
 };
 
-export default TodoItem;
+// export default memo(TodoItem, (prevProps, nextProps) => {
+//   return !(
+//     prevProps.id !== nextProps.id ||
+//     prevProps.isDone !== nextProps.isDone ||
+//     prevProps.content !== nextProps.content ||
+//     nextProps.isDone !== nextProps.isDone
+//   );
+// });
+export default memo(TodoItem);

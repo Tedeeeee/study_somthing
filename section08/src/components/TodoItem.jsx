@@ -1,14 +1,11 @@
 import "./TotoItem.css";
-import { memo } from "react";
+import { memo, useContext } from "react";
+import { TodoDispatchContext } from "../App.jsx";
 
-const TodoItem = ({
-  id,
-  isDone,
-  content,
-  date,
-  onUpdate,
-  onDelete,
-}) => {
+const TodoItem = ({ id, isDone, content, date }) => {
+  const { onUpdate, onDelete } = useContext(
+    TodoDispatchContext
+  );
   const onChangeCheckbox = () => {
     onUpdate(id);
   };
@@ -34,12 +31,4 @@ const TodoItem = ({
   );
 };
 
-// export default memo(TodoItem, (prevProps, nextProps) => {
-//   return !(
-//     prevProps.id !== nextProps.id ||
-//     prevProps.isDone !== nextProps.isDone ||
-//     prevProps.content !== nextProps.content ||
-//     nextProps.isDone !== nextProps.isDone
-//   );
-// });
 export default memo(TodoItem);

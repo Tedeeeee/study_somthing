@@ -1,7 +1,9 @@
 import "./Editor.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { TodoDispatchContext } from "../App.jsx";
 
-const Editor = ({ onAddList }) => {
+const Editor = () => {
+  const { onAddList } = useContext(TodoDispatchContext);
   const [content, setContent] = useState("");
   const inputRef = useRef();
 

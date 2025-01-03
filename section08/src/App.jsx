@@ -49,6 +49,7 @@ function reducer(state, action) {
 }
 
 export const TodoStateContext = createContext();
+console.log("렌더링");
 export const TodoDispatchContext = createContext();
 
 function App() {

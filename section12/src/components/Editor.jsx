@@ -1,7 +1,7 @@
 import "./Editor.css";
 import EmotionItem from "./EmotionItem";
 import Button from "./Button.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const emotionList = [
@@ -42,7 +42,7 @@ const getStringedDate = (targetDate) => {
   return `${year}-${month}-${day}`;
 };
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ onSubmit, initData }) => {
   const nav = useNavigate();
   const [input, setInput] = useState({
     createdDate: new Date(),
@@ -66,6 +66,15 @@ const Editor = ({ onSubmit }) => {
   const onClickSubmit = () => {
     onSubmit(input);
   };
+
+  useEffect(() => {
+    if (initData) {
+      setInput({
+        ...initData,
+        createdDate: new Date(Number(initData.createdDate)),
+      });
+    }
+  }, [initData]);
 
   return (
     <div className="Editor">
@@ -93,9 +102,7 @@ const Editor = ({ onSubmit }) => {
               }
               key={item.emotionId}
               {...item}
-              isSelected={
-                input.emotionId === item.emotionId
-              }
+              isSelected={input.emotionId === item.emotionId}
             />
           ))}
         </div>
@@ -111,11 +118,7 @@ const Editor = ({ onSubmit }) => {
       </section>
       <section className="button_section">
         <Button text={"최소하기"} onClick={() => nav(-1)} />
-        <Button
-          text={"작성완료"}
-          type="positive"
-          onClick={onClickSubmit}
-        />
+        <Button text={"작성완료"} type="positive" onClick={onClickSubmit} />
       </section>
     </div>
   );

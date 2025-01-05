@@ -38,7 +38,7 @@ const DiaryList = ({ data }) => {
         </select>
         <Button
           onClick={() => {
-            nav(`/new`);
+            nav(`/New`);
           }}
           text={"새 일기 쓰기"}
           type={"positive"}
